@@ -1,0 +1,7 @@
+apiVersion: v1
+name: application
+description: Generic helm chart for an application with a frontend and backend
+version: 0.0.1
+maintainers:
+- name: Ali Kahoot
+  email: kahoot.ali@outlook.com
