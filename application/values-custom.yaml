@@ -1,0 +1,9 @@
+applicationName: ali-application
+
+backend:
+  replicas: 2
+
+frontend:
+  podLabels:
+    tier: frontend
+  nodePort: 32000
