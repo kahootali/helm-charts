@@ -1,0 +1,30 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  labels:
+{{ include "application.labels" . | indent 4 }}
+{{- if .Values.backend.additionalLabels }}
+{{ toYaml .Values.backend.additionalLabels | indent 4 }}
+{{- end }}
+{{- if .Values.application.annotations }}
+  annotations:
+{{ toYaml .Values.application.annotations | indent 4 }}
+{{- end }}
+  name: {{ template "application.name" . }}-backend
+spec:
+  replicas: {{ .Values.backend.replicas }}
+  template:
+    metadata:
+      labels:
+{{- if .Values.backend.podLabels }}
+{{ include "application.labels" . | indent 8 }}
+{{ toYaml .Values.backend.podLabels | indent 8 }}
+{{- end }}
+    spec:      
+      containers:
+      - name: {{ template "application.name" . }}-backend
+        image: "{{ .Values.backend.image }}"    
+        imagePullPolicy: {{ .Values.backend.imagePullPolicy }}   
+        ports:
+        - containerPort: {{ .Values.backend.containerPort }}
+          name: tcp
