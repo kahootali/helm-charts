@@ -1,4 +1,4 @@
-apiVersion: apps/v1beta1
+apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
@@ -13,6 +13,12 @@ metadata:
   name: {{ template "application.name" . }}-frontend
 spec:
   replicas: {{ .Values.frontend.replicas }}
+  selector:
+    matchLabels:
+{{- if .Values.frontend.podLabels }}
+{{ include "application.labels" . | indent 6 }}
+{{ toYaml .Values.frontend.podLabels | indent 6 }}
+{{- end }}
   template:
     metadata:
       labels:
