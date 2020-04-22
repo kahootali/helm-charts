@@ -1,0 +1,101 @@
+---
+# Source: application/templates/backend-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  type: ClusterIP
+  selector:
+    app: dice
+    tier: backend
+    
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+---
+# Source: application/templates/frontend-service.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: dice-frontend
+spec:
+  type: NodePort
+  selector:
+    app: dice
+    tier: frontend
+    
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 8080
+      nodePort: 31000
+---
+# Source: application/templates/backend-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: dice
+    tier: backend
+    
+  annotations:
+    lab: helm
+    
+  name: dice-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dice
+      tier: backend
+      
+  template:
+    metadata:
+      labels:
+        app: dice
+        tier: backend
+        
+    spec:      
+      containers:
+      - name: dice-backend
+        image: "kahootali/python-backend"    
+        imagePullPolicy: IfNotPresent   
+        ports:
+        - containerPort: 8080
+          name: tcp
+---
+# Source: application/templates/frontend-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: dice
+    tier: frontend
+    
+  annotations:
+    lab: helm
+    
+  name: dice-frontend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dice
+      tier: frontend
+      
+  template:
+    metadata:
+      labels:
+        app: dice
+        tier: frontend
+        
+    spec:      
+      containers:
+      - name: dice-frontend
+        image: "kahootali/node-frontend"    
+        imagePullPolicy: IfNotPresent   
+        ports:
+        - containerPort: 8080
+          name: tcp
