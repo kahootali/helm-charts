@@ -5,10 +5,7 @@ metadata:
 spec:
   type: {{ .Values.backend.serviceType }}
   selector:
-{{ include "application.labels" . | indent 4 }}
-{{- if .Values.backend.additionalLabels }}
-{{ toYaml .Values.backend.additionalLabels | indent 4 }}
-{{- end }}
+{{ include "application-backend.labels" . | indent 4 }}
   ports:
     - protocol: TCP
       port: {{ .Values.backend.containerPort }}
