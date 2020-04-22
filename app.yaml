@@ -9,7 +9,6 @@ spec:
   selector:
     app: dice
     tier: backend
-    
   ports:
     - protocol: TCP
       port: 8080
@@ -25,7 +24,6 @@ spec:
   selector:
     app: dice
     tier: frontend
-    
   ports:
     - protocol: TCP
       port: 8080
@@ -39,10 +37,9 @@ metadata:
   labels:
     app: dice
     tier: backend
-    
   annotations:
     lab: helm
-    
+
   name: dice-backend
 spec:
   replicas: 1
@@ -50,13 +47,11 @@ spec:
     matchLabels:
       app: dice
       tier: backend
-      
   template:
     metadata:
       labels:
         app: dice
         tier: backend
-        
     spec:      
       containers:
       - name: dice-backend
@@ -73,10 +68,8 @@ metadata:
   labels:
     app: dice
     tier: frontend
-    
   annotations:
     lab: helm
-    
   name: dice-frontend
 spec:
   replicas: 1
@@ -84,13 +77,11 @@ spec:
     matchLabels:
       app: dice
       tier: frontend
-      
   template:
     metadata:
       labels:
         app: dice
         tier: frontend
-        
     spec:      
       containers:
       - name: dice-frontend
