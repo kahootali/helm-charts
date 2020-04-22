@@ -4,22 +4,14 @@ application:
     lab: helm
 
 backend:
-  additionalLabels:
-    tier: backend
   replicas: 1
-  podLabels:
-    tier: backend
   image: kahootali/python-backend
   imagePullPolicy: IfNotPresent
   containerPort: 8080
   serviceType: ClusterIP 
 
 frontend:
-  additionalLabels:
-    tier: frontend
   replicas: 1
-  podLabels:
-    tier: frontend
   image: kahootali/node-frontend
   imagePullPolicy: IfNotPresent
   containerPort: 8080
