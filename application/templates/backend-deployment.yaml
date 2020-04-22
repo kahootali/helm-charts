@@ -2,30 +2,22 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-{{ include "application.labels" . | indent 4 }}
-{{- if .Values.backend.additionalLabels }}
-{{ toYaml .Values.backend.additionalLabels | indent 4 }}
-{{- end }}
+{{ include "application-backend.labels" . | indent 4 }}
 {{- if .Values.application.annotations }}
   annotations:
 {{ toYaml .Values.application.annotations | indent 4 }}
 {{- end }}
+
   name: {{ template "application.name" . }}-backend
 spec:
   replicas: {{ .Values.backend.replicas }}
   selector:
     matchLabels:
-{{- if .Values.backend.podLabels }}
-{{ include "application.labels" . | indent 6 }}
-{{ toYaml .Values.backend.podLabels | indent 6 }}
-{{- end }}
+{{ include "application-backend.labels" . | indent 6 }}
   template:
     metadata:
       labels:
-{{- if .Values.backend.podLabels }}
-{{ include "application.labels" . | indent 8 }}
-{{ toYaml .Values.backend.podLabels | indent 8 }}
-{{- end }}
+{{ include "application-backend.labels" . | indent 8 }}
     spec:      
       containers:
       - name: {{ template "application.name" . }}-backend
