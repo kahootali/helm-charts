@@ -6,9 +6,6 @@ spec:
   type: {{ .Values.frontend.serviceType }}
   selector:
 {{ include "application.labels" . | indent 4 }}
-{{- if .Values.frontend.additionalLabels }}
-{{ toYaml .Values.frontend.additionalLabels | indent 4 }}
-{{- end }}
   ports:
     - protocol: TCP
       port: {{ .Values.frontend.containerPort }}
