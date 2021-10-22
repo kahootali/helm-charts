@@ -8,12 +8,17 @@ backend:
   image: kahootali/python-backend
   imagePullPolicy: IfNotPresent
   containerPort: 8080
-  serviceType: ClusterIP 
+  service:
+    type: ClusterIP
+    port: 8080
+
 
 frontend:
   replicas: 1
   image: kahootali/node-frontend
   imagePullPolicy: IfNotPresent
   containerPort: 8080
-  nodePort: 31000
-  serviceType: "NodePort"
+  service:
+    port: 8080
+    type: "NodePort"
+    nodePort: 31000

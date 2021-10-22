@@ -55,7 +55,7 @@ spec:
     spec:      
       containers:
       - name: dice-backend
-        image: "kahootali/python-backend"    
+        image: "kahootali/python-backend:batch7"    
         imagePullPolicy: IfNotPresent   
         ports:
         - containerPort: 8080
@@ -85,7 +85,10 @@ spec:
     spec:      
       containers:
       - name: dice-frontend
-        image: "kahootali/node-frontend"    
+        image: "kahootali/node-frontend:batch7"
+        env:
+          - name: BACKEND_URL
+            value: backend:8080
         imagePullPolicy: IfNotPresent   
         ports:
         - containerPort: 8080

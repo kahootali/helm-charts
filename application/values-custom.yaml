@@ -2,6 +2,18 @@ applicationName: ali
 
 backend:
   replicas: 2
+  image: kahootali/python-backend:batch7
+  containerPort: 8080
+  containerPort: 8080
+  service:
+    type: ClusterIP
+    port: 9090
 
 frontend:
-  nodePort: 32000
+  image: kahootali/node-frontend:batch7
+  env:
+  - name: BACKEND_URL
+    value: backend:9090 
+  replicas: 3
+  service:
+    nodePort: 32000
