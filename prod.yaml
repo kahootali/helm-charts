@@ -1,0 +1,17 @@
+applicationName: prod
+
+backend:
+  replicas: 3
+  image: kahootali/python-backend:batch8
+  service:
+    type: ClusterIP
+    port: 9090
+
+frontend:
+  image: kahootali/node-frontend:batch8
+  env:
+  - name: BACKEND_URL
+    value: prod-backend:9090 
+  replicas: 3
+  service:
+    nodePort: 32002
